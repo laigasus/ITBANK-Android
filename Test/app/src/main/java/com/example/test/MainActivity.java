@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    if(autoCheck.)
                     Toast.makeText(getApplicationContext(),
                             "ID: "+loginId+", PW: "+loginPw+"입니다.",
                             Toast.LENGTH_SHORT).show();
