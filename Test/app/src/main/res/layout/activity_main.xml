@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".MainActivity"
     android:orientation="vertical"
-    tools:context=".MainActivity">
-
+    >
 
     <TextView
         android:layout_width="wrap_content"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/edit1"
+        android:id="@+id/ID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="여기에 ID를 입력해주세요"
@@ -34,23 +34,54 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/edit2"
+        android:id="@+id/PW"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="여기에 PW를 입력해주세요"
         />
 
-    <Button
-        android:id="@+id/loginbtn"
+    <CheckBox
+        android:id="@+id/agree1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="로그인" />
+        android:text="개인 정보 동의 1" />
 
-    <Button
-        android:id="@+id/registerbtn"
+    <CheckBox
+        android:id="@+id/agree2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="회원가입" />
+        android:text="개인 정보 동의 2" />
+
+    <RadioGroup
+        android:id="@+id/sex"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <RadioButton
+
+            android:id="@+id/man"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="남성" />
+
+        <RadioButton
+            android:id="@+id/woman"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="여성" />
+
+        <Switch
+            android:id="@+id/autoCheck"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="자동 로그인 여부" />
+
+        <Button
+            android:id="@+id/register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="회원가입" />
+    </RadioGroup>
 
 
 </LinearLayout>
