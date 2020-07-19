@@ -173,27 +173,6 @@ layout_alignParentLeft	layout_alignParentRight
 	각 이벤트 처리 방식의 구현 절차와 장단점이 존재
 
 
-
-public class Test {
-	private int num=10;
-	public int getNum(){
-		return this.num;
-	}
-	public void setNum(int num){
-		this.num; = num;
-	}
-}
-
-
-
-
-
-
-
-
-
-
-
     (1) 익명(Anonymous) 클래스를 생성하여 리스너로 사용
 	Button button1 = (Button) findViewById(R.id.button1) ;
 	button1.setOnClickListener(new Button.OnClickListener() {
@@ -262,6 +241,16 @@ public class Test {
 	액티비티 내부의 위젯들에 대한 클릭 이벤트를 한 곳에서 처리하고 싶은 경우.
 	익명클래스 또는 별도의 이벤트 리스너를 만들고 싶지 않은 경우.
 
+	public class MainActivity extends AppCompatActivity implements Button.OnClickListener {
+		@Override
+		public void onCreate(Bundle savedInstanceState) {
+		}
+
+		@Override
+		public void onClick(View view) {
+
+		}
+	}
 
       (5) Layout 리소스 XML에서 Button의 onClick 속성 사용
 	별로 많이 사용하지 않는 방법, UI를 담당하는 사람과 처리 및 제어부를 담당하는 사람이 나눠져있기 때문에 각각의 역할을 나누기 위해서
