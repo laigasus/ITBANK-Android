@@ -30,6 +30,19 @@
         android:background="#0000FF"
         />
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/sunset"
+        />
+
+
+    <ImageView
+        android:layout_width="200px"
+        android:layout_height="200px"
+        android:src="@drawable/icon"
+
+        />
 
 
 </FrameLayout>
