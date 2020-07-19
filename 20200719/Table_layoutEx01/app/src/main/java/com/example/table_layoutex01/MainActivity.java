@@ -3,54 +3,103 @@ package com.example.table_layoutex01;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.SparseIntArray;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    Button btn0 = (Button)findViewById(R.id.btn0);
-    Button btn1 = (Button)findViewById(R.id.btn1);
-    Button btn2 = (Button)findViewById(R.id.btn2);
-    Button btn3 = (Button)findViewById(R.id.btn3);
-    Button btn4 = (Button)findViewById(R.id.btn4);
-    Button btn5 = (Button)findViewById(R.id.btn5);
-    Button btn6 = (Button)findViewById(R.id.btn6);
-    Button btn7 = (Button)findViewById(R.id.btn7);
-    Button btn8 = (Button)findViewById(R.id.btn8);
-    Button btn9 = (Button)findViewById(R.id.btn9);
-    String strr;
+    EditText edit1, edit2;
+    Button btnAdd, btnSub, btnMul, btnDiv;
+    TextView textResult;
+    String num1, num2;
+    Integer result;
+    int i;
+    Button selectBtn;
+
+    Button[] numButtons = new Button[10];
+    Integer[] numBtnIDs = {R.id.BtnNum0, R.id.BtnNum1, R.id.BtnNum2,
+            R.id.BtnNum3, R.id.BtnNum4, R.id.BtnNum5, R.id.BtnNum6,
+            R.id.BtnNum7, R.id.BtnNum8, R.id.BtnNum9};
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
 
-    View.OnClickListener listener = new View.OnClickListener() {
-        @Override
+        edit1 = (EditText) findViewById(R.id.Edit1);
+        edit2 = (EditText) findViewById(R.id.Edit2);
 
-        public void onClick(View v) {
+        btnAdd = (Button) findViewById(R.id.BtnAdd);
+        btnSub = (Button) findViewById(R.id.BtnSub);
+        btnMul = (Button) findViewById(R.id.BtnMul);
+        btnDiv = (Button) findViewById(R.id.BtnDiv);
 
-            btn0.setOnClickListener(listener);
-            btn1.setOnClickListener(listener);
-            btn2.setOnClickListener(listener);
-            btn3.setOnClickListener(listener);
-            btn4.setOnClickListener(listener);
-            btn5.setOnClickListener(listener);
-            btn6.setOnClickListener(listener);
-            btn7.setOnClickListener(listener);
-            btn8.setOnClickListener(listener);
-            btn9.setOnClickListener(listener);
+        textResult = (TextView) findViewById(R.id.TextResult);
 
-            switch(v.getId()) {
-                case R.id.btn0:
-                            String inputValue = btn0.getText().toString();
-                            strr.setText(inputValue);
-                    break;
-            }
+        int resultValue;
 
-
+        for (i = 0; i < numBtnIDs.length; i++) {
+            numButtons[i] = (Button) findViewById(numBtnIDs[i]);
         }
-    };
+
+        for (i = 0; i < numBtnIDs.length; i++) {
+            final int index;
+            index = i;
+            numButtons[index].setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    if(edit1.isFocused()==true)
+                    {
+                        num1=edit1.getText().toString()+numButtons[index].getText().toString();
+                        edit1.setText(num1);
+                    }
+                    else if(edit2.isFocused()==true)
+                    {
+                        num2=edit2.getText().toString()+numButtons[index].getText().toString();
+                        edit2.setText(num2);
+                    }
+                }
+            });
+        }
 
 
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                num1 = edit1.getText().toString();
+                num2 = edit2.getText().toString();
+                result = Integer.parseInt(num1) + Integer.parseInt(num2);
+                textResult.setText("계산 결과 : " + result.toString());
+            }
+        });
+
+        btnSub.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                num1 = edit1.getText().toString();
+                num2 = edit2.getText().toString();
+                result = Integer.parseInt(num1) - Integer.parseInt(num2);
+                textResult.setText("계산 결과 : " + result.toString());
+            }
+        });
+
+        btnMul.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                num1 = edit1.getText().toString();
+                num2 = edit2.getText().toString();
+                result = Integer.parseInt(num1) * Integer.parseInt(num2);
+                textResult.setText("계산 결과 : " + result.toString());
+            }
+        });
+
+        btnDiv.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                num1 = edit1.getText().toString();
+                num2 = edit2.getText().toString();
+                result = Integer.parseInt(num1) / Integer.parseInt(num2);
+                textResult.setText("계산 결과 : " + result.toString());
+            }
+        });
+    }
 }
