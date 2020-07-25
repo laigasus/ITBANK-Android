@@ -17,16 +17,16 @@ public class MainActivity extends TabActivity {
         TabHost tabHost = getTabHost();
 
         TabSpec tabSpec1 = tabHost.newTabSpec("탭1").setIndicator("탭1");
-        tabSpec1.setContent(R.id.tab1);
+        tabSpec1.setContent(R.id.imageView1);
         tabHost.addTab(tabSpec1);
 
         TabSpec tabSpec2 = tabHost.newTabSpec("탭2")
                 .setIndicator("탭2");
-        tabSpec2.setContent(R.id.tab2);
+        tabSpec2.setContent(R.id.imageView2);
         tabHost.addTab(tabSpec2);
 
         TabSpec tabSpec3 = tabHost.newTabSpec("탭3").setIndicator("탭3");
-        tabSpec3.setContent(R.id.tab3);
+        tabSpec3.setContent(R.id.imageView3);
         tabHost.addTab(tabSpec3);
 
         tabHost.setCurrentTab(0);
