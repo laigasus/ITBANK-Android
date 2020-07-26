@@ -1,0 +1,8 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/startslide"
+        android:title="시작" />
+    <item
+        android:id="@+id/stopslide"
+        android:title="중지" />
+</menu>
