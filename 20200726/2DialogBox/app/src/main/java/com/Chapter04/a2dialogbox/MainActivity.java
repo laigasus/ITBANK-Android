@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -19,6 +20,9 @@ public class MainActivity extends AppCompatActivity {
     View dialogView;
     EditText editname;
     EditText editemail;
+    TextView nameValue;
+    TextView emailValue;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +34,11 @@ public class MainActivity extends AppCompatActivity {
         button3 = (Button) findViewById(R.id.button3);
         button4 = (Button) findViewById(R.id.button4);
         button5 = (Button) findViewById(R.id.button5);
-        editname=(EditText)findViewById(R.id.editname);
-        editemail=(EditText)findViewById(R.id.editemail);
+        editname = (EditText) findViewById(R.id.editname);
+        editemail = (EditText) findViewById(R.id.editemail);
+        nameValue = (TextView) findViewById(R.id.namevalue);
+        emailValue = (TextView) findViewById(R.id.emailvalue);
+
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,15 +139,19 @@ public class MainActivity extends AppCompatActivity {
                 dlg.setIcon(R.mipmap.ic_launcher_round);
 
                 dlg.setView(dialogView);
+
+                dlg.setPositiveButton("전송",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                                nameValue.setText(editname.getText().toString());
+                                emailValue.setText(editemail.getText().toString());
+
+                            }
+                        });
+
                 dlg.show();
-
-                dlg.setPositiveButton("전송", new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                });
             }
         });
 
