@@ -1,4 +1,4 @@
-# Chapter01 :fire:
+# :fire: Chapter01 :fire:
 ## 구성 ##
 ### 1. 버튼에 액션 추가하기 :star:
 
