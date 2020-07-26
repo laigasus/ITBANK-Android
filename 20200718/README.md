@@ -20,3 +20,7 @@
 1. [activity_main.xml](https://github.com/laigasus/ITBANK-Android/blob/master/20200718/4RegisterForm/app/src/main/res/layout/activity_main.xml)
 2. [MainActivity.java](https://github.com/laigasus/ITBANK-Android/blob/master/20200718/4RegisterForm/app/src/main/java/com/example/a4registerform/MainActivity.java)
 
+### 결과물
+
+1. [앱](https://github.com/laigasus/ITBANK-Android/tree/master/20200718/APK)
+2. [스크린샷]()
