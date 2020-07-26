@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">ColorPlate</string>
-    <string name="myString_ko">"리소스 이용하기"</string>
-    <string name="myString_en">"리소스 이용하기"</string>
-
-</resources>
