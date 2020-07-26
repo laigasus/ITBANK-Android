@@ -23,4 +23,4 @@
 ## 결과물 :thumbsup:
 
 1. [앱](https://github.com/laigasus/ITBANK-Android/tree/master/20200718/APK)
-2. [스크린샷]()
+2. [스크린샷](https://github.com/laigasus/ITBANK-Android/tree/master/20200718/Preview)
