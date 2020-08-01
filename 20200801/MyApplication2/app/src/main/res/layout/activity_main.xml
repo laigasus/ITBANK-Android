@@ -71,23 +71,25 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <LinearLayout
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:background="#00FF00"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:id="@+id/textNameResult">
 
-        </LinearLayout>
+        </TextView>
 
-        <LinearLayout
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:background="#0000FF"
-            android:layout_weight="1">>
+            android:layout_weight="1"
+            android:id="@+id/textNumberResult">
 
-        </LinearLayout>
+        </TextView>
 
     </LinearLayout>
 

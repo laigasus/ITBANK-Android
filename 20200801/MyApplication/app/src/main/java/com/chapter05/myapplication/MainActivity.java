@@ -17,7 +17,6 @@ public class MainActivity extends AppCompatActivity {
 
     Button call, openpage, openmap, search, sendmsg, viewpic;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
