@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     EditText edtName, edtNumber;
 
-    Button btnInit, btnInsert, btnSelect;
+    Button btnInit, btnInsert, btnSelect, btnUpdate, btnDelete;
 
     myDBHelper myHelper;
 
@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         btnInit = (Button) findViewById(R.id.btnInit);
         btnInsert = (Button) findViewById(R.id.btnInsert);
         btnSelect = (Button) findViewById(R.id.btnSelect);
+        btnUpdate = (Button) findViewById(R.id.btnUpdate);
+        btnDelete = (Button) findViewById(R.id.btnDelete);
 
         textNameResult = (TextView) findViewById(R.id.textNameResult);
         textNumberResult = (TextView) findViewById(R.id.textNumberResult);
@@ -59,15 +61,22 @@ public class MainActivity extends AppCompatActivity {
         btnInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sqlDB = myHelper.getWritableDatabase();
-                sqlDB.execSQL("INSERT INTO groupTBL VALUES ('" +
-                        edtName.getText().toString() +
-                        "', " +
-                        edtNumber.getText().toString() +
-                        ");");
-                sqlDB.close();
-                Toast.makeText(getApplicationContext(),
-                        "입력됨", Toast.LENGTH_SHORT);
+                try {
+                    sqlDB = myHelper.getWritableDatabase();
+                    sqlDB.execSQL("INSERT INTO groupTBL VALUES ('" +
+                            edtName.getText().toString() +
+                            "', " +
+                            edtNumber.getText().toString() +
+                            ");");
+                    sqlDB.close();
+                    Toast.makeText(MainActivity.this,
+                            "입력됨", Toast.LENGTH_SHORT);
+                } catch (Exception e) {
+                    sqlDB.close();
+                    Toast.makeText(MainActivity.this,
+                            "값을 넣어주세요", Toast.LENGTH_SHORT);
+                }
+
             }
         });
 
@@ -89,6 +98,38 @@ public class MainActivity extends AppCompatActivity {
                 textNumberResult.setText(strNumbers);
                 cursor.close();
                 sqlDB.close();
+            }
+        });
+
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                sqlDB = myHelper.getWritableDatabase();
+                if (edtName.getText().toString() != "") {
+                    sqlDB.execSQL("UPDATE groupTBL SET gNumber ="
+                            + edtNumber.getText() + " WHERE gName = '"
+                            + edtName.getText().toString() + "';");
+                }
+                sqlDB.close();
+
+                Toast.makeText(getApplicationContext(), "수정됨",
+                        Toast.LENGTH_SHORT).show();
+                btnSelect.callOnClick();
+            }
+        });
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                sqlDB = myHelper.getWritableDatabase();
+                if (edtName.getText().toString() != "") {
+                    sqlDB.execSQL("DELETE FROM groupTBL WHERE gName = '"
+                            + edtName.getText().toString() + "';");
+
+                }
+                sqlDB.close();
+
+                Toast.makeText(getApplicationContext(), "삭제됨",
+                        Toast.LENGTH_SHORT).show();
+                btnSelect.callOnClick();
             }
         });
 

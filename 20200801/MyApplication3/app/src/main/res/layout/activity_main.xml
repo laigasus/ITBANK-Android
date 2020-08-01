@@ -47,62 +47,27 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnInit"
-            android:layout_width="215px"
+            android:id="@+id/btnSubmit"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="초기화" />
+            android:text="전송" />
 
-        <Button
-            android:id="@+id/btnInsert"
-            android:layout_width="215px"
-            android:layout_height="wrap_content"
-            android:text="입력" />
-
-        <Button
-            android:id="@+id/btnSelect"
-            android:layout_width="215px"
-            android:layout_height="wrap_content"
-            android:text="조회" />
-
-        <Button
-            android:id="@+id/btnUpdate"
-            android:layout_width="215px"
-            android:layout_height="wrap_content"
-            android:text="수정" />
-
-        <Button
-            android:id="@+id/btnDelete"
-            android:layout_width="215px"
-            android:layout_height="wrap_content"
-            android:text="삭제" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="#bdf0c3"
+        android:layout_weight="1"
+        android:id="@+id/textNameResult">
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="#bdf0c3"
-            android:layout_weight="1"
-            android:id="@+id/textNameResult">
-
-        </TextView>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="#b2d7d9"
-            android:layout_weight="1"
-            android:id="@+id/textNumberResult">
-
-        </TextView>
-
+            android:layout_height="wrap_content"
+            android:id=""
+            android:text=""/>
     </LinearLayout>
 
 </LinearLayout>
