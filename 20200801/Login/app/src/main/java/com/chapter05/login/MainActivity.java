@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
     class CustomTask extends AsyncTask<String, Void, String> {
         String sendMsg, receiveMsg;
+
         @Override
 
         protected String doInBackground(String... strings) {
@@ -80,14 +81,14 @@ public class MainActivity extends AppCompatActivity {
 
                 OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
                 //sendMsg = "str1=test&str2=qwer";
-                sendMsg = "email="+strings[0]
-                        +"&name="+strings[1]
-                        +"&password="+strings[2];
+                sendMsg = "email=" + strings[0]
+                        + "&name=" + strings[1]
+                        + "&password=" + strings[2];
 
                 osw.write(sendMsg);
                 osw.flush();
 
-                if(conn.getResponseCode() == conn.HTTP_OK) {
+                if (conn.getResponseCode() == conn.HTTP_OK) {
                     InputStreamReader tmp = new InputStreamReader(conn.getInputStream(), "UTF-8");
                     BufferedReader reader = new BufferedReader(tmp);
                     StringBuffer buffer = new StringBuffer();
@@ -98,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                     receiveMsg = buffer.toString();
 
                 } else {
-                    Log.i("통신 결과", conn.getResponseCode()+"에러");
+                    Log.i("통신 결과", conn.getResponseCode() + "에러");
                 }
 
             } catch (MalformedURLException e) {
