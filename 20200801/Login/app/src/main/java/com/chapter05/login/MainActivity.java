@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         protected String doInBackground(String... strings) {
             try {
 
-                URL url = new URL("http://192.168.0.21:8888/test/signup.jsp");
+                URL url = new URL("http://192.168.0.13:8888/test/signup.jsp");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 conn.setRequestMethod("POST");
