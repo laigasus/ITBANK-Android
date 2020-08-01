@@ -29,7 +29,7 @@ public class DataActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent resultIntent=new Intent();
-                resultIntent.putExtra("result", "asdkhksadh");
+                resultIntent.putExtra("result", "closebtn.setOnClickListener 에서 값을 넣은 것입니다");
                 setResult(RESULT_OK, resultIntent);
                 finish();
             }
