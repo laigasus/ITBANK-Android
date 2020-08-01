@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.icu.text.UnicodeSetSpanner;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,7 +12,27 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+    ImageView image[];
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                int max = Integer.parseInt(data.getStringExtra("result"));
+                Toast.makeText(getApplicationContext(), ""+max, Toast.LENGTH_SHORT).show();
+                image[0].setVisibility(View.VISIBLE);
+                image[1].setVisibility(View.VISIBLE);
+                image[2].setVisibility(View.VISIBLE);
+                for(int i=0; i<image.length; i++) {
+                    if(i==max) {
+                        continue;
+                    }
+                    image[i].setVisibility(View.INVISIBLE);
+                }
+            }
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,12 +41,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setTitle("영화 평점");
 
-
         final int voteCount[] = new int[3];
         for (int i = 0; i < 3; i++)
             voteCount[i] = 0;
 
-        ImageView image[] = new ImageView[3];
+        image = new ImageView[3];
 
         Integer imageId[] = { R.id.iv1, R.id.iv2, R.id.iv3};
 
@@ -61,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                         ResultActivity.class);
                 intent.putExtra("VoteCount", voteCount);
                 intent.putExtra("ImageName", imgName);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
 
