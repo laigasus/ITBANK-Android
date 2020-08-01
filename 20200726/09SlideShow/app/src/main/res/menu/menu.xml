@@ -1,0 +1,21 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nextbtn"
+        android:title="다음" />
+    <item
+        android:id="@+id/prevbtn"
+        android:title="이전" />
+    <item android:title="직접 선택">
+        <menu>
+            <item
+                android:id="@+id/alive"
+                android:title="살아있다" />
+            <item
+                android:id="@+id/steelrain"
+                android:title="강철비2" />
+            <item
+                android:id="@+id/bando"
+                android:title="반도" />
+        </menu>
+    </item>
+</menu>
