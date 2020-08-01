@@ -1,0 +1,822 @@
+  0. 수강 동의
+    mgr.kgitbank.com에 접속해서 
+    안드로이드 강의 수강 동의 해주세요.
+
+
+  1. 수업 방식
+
+    http://192.168.0.21 접속
+
+    1. doc 에서는 강의 자료 정리
+
+    2. program 에서는 필요한 파일들 공유
+
+
+  2. 실습 환경 설정
+    1) JDK 설치
+	강사자료실 : jdk-8u202-windows-x64.exe
+	공식 홈페이지 : https://www.oracle.com/java/technologies/javase/javase8-archive-downloads.html
+
+    2) 환경변수 설정
+	내 PC 우클릭 -> 속성 -> 고급 시스템 설정 -> 고급 탭 -> 환경 변수	
+
+	path 환경변수에 %JAVA_HOME%\bin 추가
+
+	JAVA_HOME 변수 생성 
+	JAVA_HOME 값은 jdk가 설치된 경로로 설정
+		C:\Program Files\Java\jdk1.8.0_202
+
+    3) 안드로이드 스튜디오 다운 및 설치
+	강사 자료실 : android-studio-ide-193.6626763-windows.exe
+	공식 홈페이지 : https://developer.android.com/studio?hl=ko
+
+  3. 기본 프로젝트 생성
+    안드로이드 스튜디오 실행 -> start new project -> Basic Activity
+     -> Next -> Save location  수정 -> Finish
+					(본인 폴더 밑에 폴더 생성 후)
+
+    안드로이드 스튜디오가 실행되면 오른쪽 상단에 핸드폰 모양 버튼 클릭(AVD Manager)
+    또는 상단 메뉴 -> Tools -> AVD Manager
+
+    Create Virtual Machine -> Nexus 5X 선택 -> Next -> Oreo Download -> Accept -> Next
+    설치 완료되면 Finish
+
+  4. 프로젝트 파일
+    app/res/layout/activity_main.xml : 메인 화면 구성
+
+    app/java/com.example.myapplication/MainActivity.java : 
+			메인 화면에 구성된 버튼이나 글씨 등을 선택했을 때
+			동작하는 코드를 작성
+
+    app/manifests/AndroidManifest.xml : 안드로이드 프로젝트의 필수 파일, 패키지 이름, 
+					버전, 권한 등을 설정
+
+
+  5. 프로젝트 실행
+	shift+F10 또는 안드로이드 스튜디오 상단에 초록생 재생 버튼 클릭 -> 실행할 머신 선택 후 OK
+
+
+  6. 버튼 추가해보기
+	activity_main.xml 파일 수정
+
+	방법은 2가지 Design 탭에서 마우스로 클릭 클릭해서 만드는 방법
+	Text 탭에서 XML코드를 이용해서 만드는 방법
+	<!--  -->   는 XML에서의 주석
+
+    <Button				<!--버튼 뷰 추가-->		
+        android:layout_width="match_parent"	<!--버튼 뷰의 가로 길이-->
+        android:layout_height="wrap_content"	<!--버튼 뷰의 세로 길이-->
+        android:text="확인2"			<!--버튼 뷰의 내용-->
+        android:textSize="30dp"			<!--버튼 뷰의 내용의 크기-->
+        android:id="@+id/button2"		<!--버튼 뷰의 id값, 나중에 java 파일에서 접근할 때 사용-->
+        />
+
+
+
+  7. 레이아웃 바꿔보기
+	activity_main.xml 파일 수정
+
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+를
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+로 수정
+
+맨 위의 레이아웃과 중간에 orientation 속성 추가
+
+LinearLayout은 안드로이드 어플에서 가장 많이 사용하는 레이아웃
+
+
+
+8. 버튼에 액션 추가해보기
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        View.OnClickListener listener = new View.OnClickListener() {	//리스너 생성, 버튼을 클릭했을 때 호출
+            @Override
+            public void onClick(View v) {
+                switch(v.getId()) {
+                    case R.id.button1:
+                        Toast.makeText(getApplicationContext(), "버튼1 선택", Toast.LENGTH_LONG).show();		//잠깐 동안 화면에 메시지를 띄워준다.
+                        break;
+                }
+            }
+        };
+        Button btn1 = (Button)findViewById(R.id.button1);	//레이아웃에 생성했던 버튼을 받아온다.
+        btn1.setOnClickListener(listener);			//생성한 리스너를 등록
+    }
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------
+	activity_main.xml
+-------------------------------------------------------------------------------------------------------------------------------
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="확인1"
+        android:textSize="30dp"
+        android:id="@+id/button1"
+        />
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="확인2"
+        android:textSize="30dp"
+        android:id="@+id/button2"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="확인3"
+        android:textSize="30dp"
+        android:id="@+id/button3"
+        />
+
+</LinearLayout>
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------
+	MainActivity.java
+-------------------------------------------------------------------------------------------------------------------------------
+package com.example.myapplication;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch(v.getId()) {
+                    case R.id.button1:
+                        Toast.makeText(getApplicationContext(), "버튼1 선택", Toast.LENGTH_LONG).show();
+                        break;
+                    case R.id.button2:
+                        Toast.makeText(getApplicationContext(), "버튼2 선택", Toast.LENGTH_LONG).show();
+                        break;
+
+                    case R.id.button3:
+                        Toast.makeText(getApplicationContext(), "버튼3 선택", Toast.LENGTH_LONG).show();
+                        break;
+                }
+            }
+        };
+
+
+        Button btn1 = (Button)findViewById(R.id.button1);
+        btn1.setOnClickListener(listener);
+
+        Button btn2 = (Button)findViewById(R.id.button2);
+        btn2.setOnClickListener(listener);
+
+        Button btn3 = (Button)findViewById(R.id.button3);
+        btn3.setOnClickListener(listener);
+    }
+}
+
+
+0. 안드로이드 기본 용어
+  1) 액티비티
+	안드로이드 4대 컴포넌트(구성요소) 중 하나, 액티비티 할 때 4대 구성요소(액티비티, 서비스, 방송수신자, 콘텐츠제공자)는 따로 설명
+	안드로이드 디바이스는 컴퓨터의 모니터보다 많이 작은 편
+	한 화면에 많은 정보를 포함하지 못함
+	따라서 안드로이드 앱은 대부분 여러 화면으로 구성
+	이 때 각각의 한 화면이 바로 Activity
+	하나의 액티비티는 해당하는 액티비티에 대한 리소스 파일과 자바 파일을 가진다.
+	(activity_main.xml, MainActivity.java 처럼)
+
+  2) 레이아웃
+	레이아웃은 액티비티에 어떤 식으로 내부 내용들을 보여주고 배치할 지 정하고
+	좀 더 효율적으로 배치할 수 있도록 하는 것
+	상황에 맞는 레이아웃 선택 필요
+	레이아웃 안에 레이아웃 넣기 가능
+
+  3) 뷰
+	화면을 구성하는 각각의 요소들을 뷰라고 함(버튼, 텍스트, 리스트, 그리드, 이미지, 체크박스 등등)
+	위젯이라고도 부름
+
+
+1. 안드로이드 뷰
+  1) 뷰의 개요
+	안드로이드에서 사용되는 모든 뷰들은 View 클래스를 상속받음
+	view 클래스 계층도 참고
+
+  2) 뷰의 XML 속성				
+		속성				값
+	기본
+	android:layout_width=""		match_parent		 wrap_content
+	android:layout_height=""	자신의 부모에 폭이나 높이를 맞춤      자신의 폭이나 높이를 자신 안의 내용에 맞춤
+	android:id=""		@+id/[원하는 값]	해당 값은 나중에 java파일에서 해당 버튼을 생성할 때 사용
+	android:text=""		뷰에 들어갈 내용
+	android:textSize=""		내용의 폰트 크기
+
+	여백
+	android:padding=""	뷰 안의 요소가 떨어지도록,
+	android:layout_margin=""	뷰끼리의 요소가 떨어지도록
+
+
+	기타
+	android:visibility=""		보일지 말지 여부 결정, visible 또는 invisible
+	android:enabled=""		위젯의 동작 여부
+	android:clickable=""	클릭 또는 터치 가능 여부
+
+
+-----------------------------------------------------------------------------------------------------------------------------
+	버튼 뷰 추가 후 패딩 및 마진 실습		activity_main.xml
+-----------------------------------------------------------------------------------------------------------------------------
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="40dp"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:text="이것은 버튼1입니다."
+        android:textSize="30dp" />
+
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="100dp"
+        android:layout_marginBottom="50dp"
+        android:text="이것은 버튼2입니다."
+        android:textSize="30dp"
+        />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="200dp"
+        android:layout_marginRight="10dp"
+        android:text="이것은 버튼3입니다."
+        android:textSize="30dp"
+         />
+
+</LinearLayout>
+
+
+
+
+
+  3) 다양한 뷰
+    (1) TextView
+	속성
+	text	 	 : 내용
+	textColor	 : 글자색 지정
+	textSize	 : 글자 크기
+	typeface	 : 클꼴 지정
+	textStyle	 : 스타일 지정
+	singleLine	 : 내용이 길어서 줄을 넘어갈 경우 한 줄만 출력 하고 나머지는 ... 으로 대체
+
+    (2) EditText
+	hint	 : 내용 입력받기 전 안내문구
+	inputType : textPassword로 설정하면 입력내용이 *로 대체
+	
+	
+
+-----------------------------------------------------------------------------------------------------------------------------
+	로그인 페이지 만들어보기		activity_main.xml
+-----------------------------------------------------------------------------------------------------------------------------
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="40dp"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="ID"/>
+
+  <EditText
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="여기에 ID를 입력해주세요"
+      android:id="@+id/edit1"/>
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="PW"/>
+
+  <EditText
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="여기에 PW를 입력해주세요"
+      android:inputType="textPassword"
+      android:id="@+id/edit2"/>
+
+  <Button
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="로그인"
+      android:id="@+id/loginbtn"/>
+
+  <Button
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="회원가입"
+      android:id="@+id/registerbtn"/>
+
+</LinearLayout>
+
+
+-----------------------------------------------------------------------------------------------------------------------------
+	로그인 페이지 만들어보기		MainActivity.java
+-----------------------------------------------------------------------------------------------------------------------------
+	package com.example.myapplication;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+    EditText editTextId, editTextPw;
+    Button btnLogin, btnRegister;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        editTextId = (EditText)findViewById(R.id.edit1);
+        editTextPw = (EditText)findViewById(R.id.edit2);
+        btnLogin = (Button)findViewById(R.id.loginbtn);
+        btnRegister = (Button)findViewById(R.id.registerbtn);
+
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String loginId = editTextId.getText().toString();
+                String loginPw = editTextPw.getText().toString();
+
+                switch(view.getId()) {
+                    case R.id.loginbtn:
+                        Toast.makeText(getApplicationContext(),
+                                loginId+"와 "+ loginPw+"로 로그인",
+                                Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.registerbtn:
+                        Toast.makeText(getApplicationContext(),
+                                loginId+"와 "+ loginPw+"로 회원가입",
+                                Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        };
+
+        btnLogin.setOnClickListener(listener);
+        btnRegister.setOnClickListener(listener);
+
+    }
+}
+
+
+    (3) CheckBox
+	checked	 : 값을 true로 설정하면 미리 체크해주는 속성
+
+
+----------------------------------------------------------------------------------------------------------------------------
+	버튼에 액션줘서 체크박스 체크여부 확인	MainActivity.java
+----------------------------------------------------------------------------------------------------------------------------
+package com.example.myapplication;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+    CheckBox checkBox;
+    Button btn;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        checkBox = (CheckBox)findViewById(R.id.check1);
+        btn = (Button)findViewById(R.id.btn1);
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(checkBox.isChecked()) {
+                    Toast.makeText(getApplicationContext(),
+                            "체크 되어있습니다.",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(),
+                            "체크 되어있지 않습니다.",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+}
+
+
+----------------------------------------------------------------------------------------------------------------------------
+	체크박스에 액션줘서 체크박스 체크여부 확인	MainActivity.java
+----------------------------------------------------------------------------------------------------------------------------
+
+package com.example.day02;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        final TextView text = (TextView)findViewById(R.id.text);
+        final CheckBox checkBox = (CheckBox)findViewById(R.id.check);
+
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch(v.getId()) {
+                    case R.id.check:
+                        if(checkBox.isChecked()) {
+                            text.setText("체크박스가 체크되어있습니다.");
+                        } else {
+                            text.setText("체크박스가 체크되어있지 않습니다.");
+                        }
+                        break;
+                }
+            }
+        };
+        checkBox.setOnClickListener(listener);
+
+    }
+}
+
+
+
+    (4) RadioButton
+	  <RadioGroup>의 자식 태그로 사용
+
+  <RadioGroup
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/rgroup1">
+
+    <RadioButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="남성"/>
+
+    <RadioButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="여성"/>
+
+  </RadioGroup>
+
+
+    (5) Switch
+	checked	 : 값을 true로 설정하면 미리 스위치를 켜주는 속성
+
+    (6) ToggleButton
+	checked	 : 값을 true로 설정하면 미리 토글버튼을 한번 클릭해두도록 하는 속성
+
+    (7) ImageView
+	src	 : 그림파일의 위치 지정, 그림 파일은 일반적으로 res/drawable에 저장
+		   그림을 가져올 때는 "@drawable/movie_image" 확장자를 따로 써주지 않는다.
+
+
+
+  4) 자바 코드에서 뷰 속성값 설정
+	
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	2일차 실습 - 속성 변경하기
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	2일차 실습 - activity_main.xml
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:padding="20dp" >
+
+    <TextView
+        android:id="@+id/Text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="선택을 시작하겠습니까?"
+        android:textSize="20dp" />
+
+    <CheckBox
+        android:id="@+id/check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="애완동물화면 보이기" />
+
+    <TextView
+        android:id="@+id/Text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="좋아하는 애완동물은?"
+        android:textSize="20dp"
+        android:visibility="invisible" />
+
+    <RadioGroup
+        android:id="@+id/Rgroup1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible" >
+
+        <RadioButton
+            android:id="@+id/Rdo1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="강아지" />
+
+        <RadioButton
+            android:id="@+id/Rdo2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="고양이" />
+
+        <RadioButton
+            android:id="@+id/Rdo3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="토끼" />
+    </RadioGroup>
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:scaleType="fitCenter"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="선택완료"
+        android:visibility="invisible" />
+
+</LinearLayout>
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	2일차 실습 - MainActivity.java
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+package com.example.day02;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class MainActivity extends Activity {
+    TextView text1, text2;
+    CheckBox check;
+    RadioGroup rGroup1;
+    RadioButton radioArray[] = new RadioButton[3];
+    ImageView imgPet;
+    Button btnQuit;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        setTitle("안드로이드 사진 보기");
+
+        // 위젯을 변수에 대입
+        text1 = (TextView) findViewById(R.id.Text1);
+        check = (CheckBox) findViewById(R.id.check);
+
+        text2 = (TextView) findViewById(R.id.Text2);
+        rGroup1 = (RadioGroup) findViewById(R.id.Rgroup1);
+        radioArray[0] = (RadioButton) findViewById(R.id.Rdo1);
+        radioArray[1] = (RadioButton) findViewById(R.id.Rdo2);
+        radioArray[2] = (RadioButton) findViewById(R.id.Rdo3);
+
+        imgPet = (ImageView) findViewById(R.id.image);
+
+        btnQuit = (Button) findViewById(R.id.btn);
+
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch(v.getId()) {
+                    case R.id.check:
+                        if (check.isChecked() == true) {
+                            text2.setVisibility(android.view.View.VISIBLE);
+                            rGroup1.setVisibility(android.view.View.VISIBLE);
+                            imgPet.setVisibility(android.view.View.VISIBLE);
+                            btnQuit.setVisibility(android.view.View.VISIBLE);
+                        } else {
+                            text2.setVisibility(android.view.View.INVISIBLE);
+                            rGroup1.setVisibility(android.view.View.INVISIBLE);
+                            imgPet.setVisibility(android.view.View.INVISIBLE);
+                            btnQuit.setVisibility(android.view.View.INVISIBLE);
+                        }
+                        break;
+
+                }
+            }
+
+
+        };
+
+        // 동의함 체크박스의 체크가 변경되면
+        check.setOnClickListener(listener);
+
+
+        /*
+        // 라디오버튼을 클릭할 때, 이미지 뷰를 변경시킴 ==> 배열로 처리함.
+        final int draw[] = { R.drawable.dog, R.drawable.cat,
+                R.drawable.rabbit };
+
+        for (int i = 0; i < radioArray.length; i++) {
+            final int index; // 주의! 꼭 필요함.
+            index = i;
+            radioArray[index].setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    imgPet.setImageResource(draw[index]);
+                }
+            });
+        }
+
+*/
+
+
+
+        View.OnClickListener listener2 = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch(v.getId()) {
+                    case R.id.Rdo1:
+                        imgPet.setImageResource(R.drawable.dog);
+                        break;
+                    case R.id.Rdo2:
+                        imgPet.setImageResource(R.drawable.cat);
+                        break;
+                    case R.id.Rdo3:
+                        imgPet.setImageResource(R.drawable.rabbit);
+                        break;
+
+                }
+            }
+
+
+        };
+
+        radioArray[0].setOnClickListener(listener2);
+        radioArray[1].setOnClickListener(listener2);
+        radioArray[2].setOnClickListener(listener2);
+
+
+
+        // 종료 버튼을 클릭하면
+        btnQuit.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                finish();
+            }
+        });
+
+    }
+
+}
+
+
+  5) EditText 뷰로부터 값 받아오기
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

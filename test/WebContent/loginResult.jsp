@@ -13,17 +13,18 @@ try {
 	Class.forName("com.mysql.jdbc.Driver");
 	conn = DriverManager.getConnection(url, id, pw);
 
-	String str1 = request.getParameter("str1");
-	String str2 = request.getParameter("str2");
+	String email = request.getParameter("email");
+	String name = request.getParameter("name");
+	String password = request.getParameter("password");
 
-	System.out.println(str1);
-	System.out.println(str2);
+	System.out.println(email);
+	System.out.println(name);
+	System.out.println(password);
 
-	
-	out.println(str1);
-	out.println(str2);
+	out.println(email);
+	out.println(name);
+	out.println(password);
 
-	out.print("제대로 연결되었습니다");
 	
 } catch (Exception e) {
 	e.printStackTrace();

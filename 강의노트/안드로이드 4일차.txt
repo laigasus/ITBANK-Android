@@ -1,0 +1,206 @@
+5. 메뉴
+  옵션 메뉴
+	1. 메뉴 XML 파일 생성
+	res 우클릭 -> new -> Android Resource Directory
+	 -> Resource Type을 menu로 선택 후 OK
+
+	생성된 menu 폴더 우클릭 -> new -> Menu Resource File
+	 -> xml파일 이름 입력 후 ok 
+
+
+
+	2. 메뉴 파일 등록
+	onCreateOptionsMenu(Menu menu) {	 메소드 호출
+		super.OptionsMenu(menu);
+		MenuInflater mInflater = getMenuInflater();
+		mInflater.inflate(R.menu.메뉴xml파일이름, menu)
+		return true;
+	}
+					//파일 이름 뒤에 확장자 X
+
+	*인플레이터
+	   xml파일을 화면에 표시해주기 위해서 객체를 만들고 메모리에 
+	  실행하는 과정을  인플레이션이라고 한다. 
+	  인플레이션을 해주는 클래스를 인플레이터라고 한다.
+	  setContentView 메소드 안에는 
+	  Layoutinflator 클래스로부터 inflate 메소드 사용
+
+	3. 메뉴 선택 시 작동할 내용 코딩
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.itemRed:
+			작동할 코드;
+			return true;
+		}
+		
+		return false;
+	}
+
+
+  컨텍스트 메뉴
+	특정 위젯을 롱클릭했을 때 뜨는 메뉴
+
+	1. 메뉴용 XML 파일 생성
+
+	2. 메뉴를 사용할 위젯 등록
+		registerForContextMenu(위젯)
+
+	3. 메뉴 XML 파일 등록
+		onCreateContextMenu() 호출
+
+	4. 메뉴 선택 시 작동할 코드
+		onContextItemSelected() 호출
+
+
+6. 대화상자
+	사용자와 마치 대화를 하듯 사용자에게 중요한 사항을 알려준 후
+	어떤 선택을 하게 하는 것이 목적
+
+	윈도우의 MessageBox와 비슷함
+	자바 스크립트에서는 alert
+
+	1. 대화상자 생성
+		AlertDialog.Builder 클래스 생성
+
+	2. 용도에 따른 설정
+		.setTitle, .setMassage, .setIcon, .setPositiveButton,
+		.setNegativeButton, .setItems 등
+
+
+	3. 대화상자 화면 출력
+		.show()
+
+7. 토스트 메시지
+  기본 토스트 메시지
+  리소스 파일을 이용한 토스트 메시지  
+
+
+8. 액티비티
+  1) 안드로이드 4대 컴포넌트(구성요소)
+    (0) 컴포넌트란?
+	소프트웨어 개발을 마치 레고블록을 쌓듯이 쉽게 할 수 있도록 하는 기술
+	즉, 기존의 코딩 방식에 의한 개발에서 벗어나 소프트웨어를 
+	구성단위(module)로 미리 만든 뒤
+	필요한 응용 기술을 개발할 때 이 모듈을 조립하여 완성하는 기술
+
+    (1) 액티비티
+	화면을 구성하는 가장 기본적인 컴포넌트
+
+    (2) 서비스
+	액티비티와 상관없이 백그라운드에서 동작하는 컴포넌트
+
+    (3) 브로드캐스트 리시버
+	문자 메시지 도착, 배터리 방전, SD 카드 탈부탁, 네트워크 환경 변화 
+	등이 발생 했을 때 모든 응용프로그램들이 인지할 수 있도록 신호를 
+	보내는 컴포넌트
+	
+    (4) 콘텐트 프로바이더
+	서로 다른 어플들끼리 데이터를 공유하기 위한 컴포넌트
+	데이터를 제공하는 방법으로 URI사용(Uniform Resource Identifier)
+
+	*컴포넌트끼리 데이터 공유할 때는 인텐트를 사용
+	
+
+  2) 액티비티 구조
+
+	(1)클래스 계층 구조
+	  https://developer.android.com/reference/android/app/Activity.html?hl=ko
+
+	(2) 컨텍스트를 상속 받음
+	  *컨텍스트 : 어플리케이션에 관하여 시스템이 관리하고 있는 정보에 접근
+	  또는 안드로이드 시스템 서비스에서 제공하는 API 를 호출 할 수 있는 클래스
+
+	(3) AndroidManifest.xml 파일에 액티비티 정보 정의
+
+<activity android:name=".MainActivity">
+	<intent-filter>
+		<action android:name="android.intent.action.MAIN" />
+		<category android:name="android.intent.category.LAUNCHER" />
+	</intent-filter>
+</activity>
+
+
+
+
+  3) 새로운 액티비티 생성
+	1. 새로운 액티비티에서 사용할 xml 파일 생성
+	2. 새로운 액티비티가 될 Acticity 클래스를 상속받는 java파일 생성
+	3. AndroidManifest.xml파일에 새로운 액티비티의 정보 추가
+	4. 기존의 액티비티에서 인텐트를 전달하면서 새로운 액티비티를 호출
+
+  4) 액티비티 라이프 사이클 
+    (1) onCreate()
+	액티비티가 처음 만들어질 때 호출되는 함수
+	어플리케이션이 처음 시작할 때 최초로 한번 실행되는 함수
+	주로 뷰를 만들거나 리소스를 불러오는 작업 담당
+	매개변수로 이전 상태의 정보를 담고있는 Bundle을 제공
+			(Bundle savedInstanceState)
+
+    (2) onStart()
+	액티비티가 사용자에게 보여지기 직전에 호출되는 함수
+
+
+    (3) onResume()
+	액티비티가 비로소 화면에 보여지는 단계
+	사용자에게 화면이 제공되었고 포커스가 잡힌 상태
+
+
+    (4) onRestart()
+	액티비티가 멈춰있다가(Stopped상태) 다시 호출될 때 불리는 함수
+
+
+    (5) onPause()
+	다른 액티비티가 호출 되는 경우 현재 액티비티 위에 다른 액티비티가 
+	올라와서 포커스를 잃었을 때 호출되는 함수
+	다른 Activity가 호출되기 전에 실행되기 때문에 onPause()함수에서 
+	시간이 많이 소요되는 작업이나, 많은 일을 처리하면 다른 액티비티가
+	실행되기까지 시간이 오래걸리기 때문에 이곳은 단순 데이터를 저장하는
+	용도로 사용
+
+
+    (6) onStop()
+	액티비티 위에 다른 액티비티가 완전히 올라와 화면에서 100% 가려질 때 
+	호출되는 함수, 홈 키를 누르는 경우, 또는 다른 액티비티로 이동이 있는 경우
+	만약 이상태에서 Activity가 다시 불려지면, onRestart()함수가 호출 됨
+
+
+    (7) onDestroy()
+	액티비티가 완전히 제거될 때 호출되는 함수
+	finish() 메소드를 호출되거나, 시스템 메모리 확보를 위해 호출
+
+
+  4) 액티비티에 인텐트로 데이터 전달
+    (0) 인텐트란? 
+	컴포넌트끼리 통신을 하기 위한 메시지 객체
+	새로운 화면을 표시하거나 문자 또는 다양한 데이터를 전달하는데 사용
+
+    (1) 명시적 인텐트
+	다른 액티비티의 이름을 명확히 지정할 때 사용하는 방법
+
+	데이터를 전달하는 액티비티
+	intent.putExtra("msg","전달 받은 메시지");
+
+
+	데이터를 받는 액티비티
+	 Intent intent = getIntent();
+	 String msg = intent.getStringExtra("msg");
+
+    (2) 암시적 인텐트
+	특정 액션을 지정하여 안드로이드에서 제공하는 기존 응용 프로그램을 실행
+	암시적 인텐트는 보통 액션과 데이터를 지정해야 한다.
+	액션은 어떤 행동을 할 것인가를 지정(전화, 지도, 화면에 보이기, 웹, 이메일 등)
+	데이터는 URI 형식으로 지정
+
+	대표적인 액션
+		ACTION_VIEW
+			http:  브라우져, tel: 다이얼러, geo: 구글맵 등 
+
+		ACTION_SEND
+			다른 앱을 통해 공유할 수 있는 데이터를 보낼 때 
+			이메일, sns 공유 등
+
+		ACTION_EDIT
+			다른 앱을 통해 특정 데이터를 수정할 때
+			연락처 변경 등
+
+

@@ -1,0 +1,152 @@
+
+  4) 액티비티에 인텐트로 데이터 전달
+    (0) 인텐트란? 
+	컴포넌트끼리 통신을 하기 위한 메시지 객체
+	새로운 화면을 표시하거나 문자 또는 다양한 데이터를 전달하는데 사용
+
+    (1) 명시적 인텐트
+	다른 액티비티의 이름을 명확히 지정할 때 사용하는 방법
+
+	Intent intent = new Intent(getApplicationContext(), 액티비티이름.class);
+	startActivity(intent);
+
+	데이터를 전달하는 액티비티
+	intent.putExtra("msg","전달 받은 메시지");
+
+
+	데이터를 받는 액티비티
+	 Intent intent = getIntent();
+	 String msg = intent.getStringExtra("msg");
+
+	호출하는 액티비티에서 다시 데이터를 받을 때
+	startActivityForResult(intent, 0); 로 호출 0은 되돌려 받을 때 구분하기 위해 필요한 요청 코드
+	
+	onActivityResult 메소드로 결과값 전달 받음
+
+	
+
+    (2) 암시적(묵시적) 인텐트
+	이미 약속된 특정 액션을 지정하여 안드로이드에서 제공하는 기존 응용 프로그램을 실행
+	암시적 인텐트는 보통 액션과 데이터를 지정해야 한다.
+	액션은 어떤 행동을 할 것인가를 지정(전화, 지도, 화면에 보이기, 웹, 이메일 등)
+	데이터는 URI 형식으로 지정
+
+	대표적인 액션
+		ACTION_VIEW
+			http:  브라우져, tel: 다이얼러, geo: 구글맵 등 
+
+		ACTION_SEND
+			다른 앱을 통해 공유할 수 있는 데이터를 보낼 때 
+			이메일, sns 공유 등
+
+		ACTION_EDIT
+			다른 앱을 통해 특정 데이터를 수정할 때
+			연락처 변경 등
+
+
+9. 데이터 저장 및 관리
+  1) SQLite
+	
+	모든 애플리케이션은 내부에서 구조적 데이터를 저장하고 사용하는 나름의 
+	방법이 구현돼 있다. 
+	이런 경우를 위해 설계된 SQLite는 클라이언트 응용 프로그램에 
+	임베디드되어 동작하는 오픈 소스 DBMS의 일종이다.
+	C로 작성됐으며 일반적인 SQL로 쿼리가 가능하다. 
+
+
+    (1) adb 쉘에서 SQLite 기본적인 사용법
+	.table		테이블 조회
+	.schema		테이블 형식 조회
+	.header on	SELECT문 실행 시 헤더 포함
+	.mode column	SELECT문 실행 시 칼럼 모드로 출력
+	.quit		종료
+
+
+    (2) 안드로이드에서 SQLite 프로그래밍
+	SQLiteOpenHelper 클래스, SQLiteDatabase 클래스, Cursor 인터페이스를 활용
+
+
+      1. SQLiteOpenHelper
+	생성자 : DB를 생성
+	onCreate : 테이블 생성
+	onUpgrade : 테이블 삭제 후 다시 생성
+	getReadableDatabase() : 읽기 전용 DB 열기
+	getWritableDatabase() : 읽기 전용 DB 열기
+
+
+      2. SQLiteDatabase
+	execSQL : SQL문 실행
+	close : DB 닫기
+	query, rawQuery : select 실행 후 커서 반환
+
+      3. Cursor
+	moveToFirst : 커서를 첫 행으로 이동
+	moveToLast : 커서를 마지막 행으로 이동
+	moveToNext : 현재 커서의 다음 행으로 이동
+
+
+
+
+
+	DELETE FROM student WHERE name=~~~
+
+	UPDATE student SET age= ~~~ WHERE name=~~~
+
+
+  2) 외부 DB 데이터 관리
+	안드로이드에서는 어플리케이션에 외부 DB의 정보(관리자 ID, PW)나 SQL 정보가
+	들어가면 안되기 때문에 외부 DB로 바로 접근하는 것을 허용하지 않는다.
+
+	따라서 외부 DB에 접근하기 위해서는 중간자 역할을 해줄 무언가가 필요하다.
+
+	일반적으로 웹 서버를 사용하여 안드로이드 어플이 웹으로 데이터를 전달하고	
+	전달받은 웹 서버에서 DB로 데이터를 전송 후 처리 결과를 다시 안드로이드 어플로
+	전송한다.	
+
+
+    (1) 안드로이드에서 웹으로 데이터를 전송
+	안드로이드에서는 AsyncTask와 HttpUrlConnection을 이용
+
+
+	1. DB 및 웹 서버 셋팅
+		Tomcat JSP Mysql
+
+		이클립스 설치 -> Tomcat 연동 -> Mysql 설치 -> JSP를 이용한 DB 연동
+
+		자료실 -> 2. program에서 
+	eclipse-inst-win64, mysql-connector-java-8.0.15, mysql-installer-community-8.0.15.0
+	apache-tomcat-8.5.39 4개 다운로드
+	
+	2. AsyncTask
+		일반적인 자바의 스레드와 같은 개념
+		execute() 메소드를 통해 실행됨
+		
+		실행된 후에 doInBackground에서 수행할 작업을 정의
+	
+		AsyncTask Generic 타입
+		AsyncTask <Params, Progress, Result> 
+
+
+		Params : doInBackground 파라미터 타입이 되며, execute 메소드 인자 값
+
+		Progress : doInBackground 작업 시 진행 단위의 타입으로
+
+		Result : doInBackground 리턴값
+
+
+
+		onPreExecute()		: 비동기task를 호출한 쪽에서 실행
+		onProgressUpdate()	: 비동기task에서 실행
+		onPostExecute()		: 비동기task를 호출한 쪽에서 실행
+
+
+
+
+
+	3.HttpURLConnection
+		HTTP 요청 및 응답을 처리하기 위한 클래스
+		
+		요청할 때 HTTP 요청 헤더를 만들어 아웃풋 스트림을 통해 전송
+
+		웹 서버로부터 응답은 인풋 스트림을 통해 전달 받음
+		

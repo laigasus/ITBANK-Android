@@ -1,0 +1,276 @@
+1. 안드로이드 레이아웃
+	ViewGroup 클래스로부터 상속받으며 내부에 무엇(주로 뷰)을 담는 용도로 사용
+	레이아웃 중 가장 많이 사용하는 것은 리니어 레이아웃
+
+  1) 대표적인 레이아웃
+	제약 레이아웃 (ConstraintLayout)	
+		제약 조건(Constraint) 기반 모델
+		제약 조건을 사용해 화면을 구성하는 방법
+		안드로이드 스튜디오에서 자동으로 설정하는 디폴트 레이아웃
+
+	리니어 레이아웃(LinearLayout)	
+		박스(Box) 모델
+		한 쪽 방향으로 차례대로 뷰를 추가하며 화면을 구성하는 방법
+		뷰가 차지할 수 있는 사각형 영역을 할당
+
+	상대 레이아웃(ReleativeLayout)	
+		규칙(Rule) 기반 모델
+		부모 컨테이너나 다른 뷰와의 상대적 위치로 화면을 구성하는 방법
+
+	프레임 레이아웃(FrameLayout)	
+		싱글(Single) 모델
+		가장 상위에 있는 하나의 뷰 또는 뷰그룹만 보여주는 방법
+		여러 개의 뷰가 들어가면 중첩하여 쌓게 됨
+		가장 단순하지만 여러 개의 뷰를 중첩한 후 각 뷰를 전환하여 보여주는 
+		방식으로 자주 사용함
+
+	테이블 레이아웃(TableLayout)	
+		격자(Grid) 모델
+		격자 모양의 배열을 사용하여 화면을 구성하는 방법
+		HTML에서 많이 사용하는 정렬 방식과 유사하지만 많이 사용하지는 않음
+  
+
+  2) 리니어 레이아웃
+    (1) 기본 속성
+	 <LinearLayout
+	        android:layout_width="match_parent"		<!-- 가로 길이 -->
+	        android:layout_height="match_parent"		<!-- 세로 길이 -->
+	        android:orientation="horizontal">			<!-- 정렬 방향 결정 -->
+							<!-- vertical 세로 방향 -->
+							<!-- horizontal 가로 방향 -->
+
+    (2) 추가 속성
+	gravity : 안에 배치할 내용의 정렬 방향을 좌측 우측 중앙으로 설정
+	layout_gravity : 자신의 위치를 부모의 어디쯤에 위치시킬지를 결정
+	padding : 안쪽 여백 설정
+	layout_weight : 여러 개의 레이아웃을 사용할 때 레이아웃이 전체 화면에서 차지하는 공간의 가중값을 설정
+	baselineAligned : 안에 배치할 뷰의 배치를 보기 좋게 정렬
+
+	*layout_weight 사용할 때 가끔씩 원하는대로 배치가 되지않는 경우
+	가로로 정렬할 때(honrizontal)는 width를 0dp로 설정
+	세로로 정렬할 때(vertical)는 height를 0dp로 설정
+
+
+
+  3) 렐러티브 레이아웃 (상대 레이아웃)
+	레이아웃 내부에 포함된 위젯을  상대적인 위치로 배치
+
+
+
+		layout_centerHorizontal
+
+layout_alignParentLeft	layout_alignParentRight
+	──────│──────		layout_alignParentTop
+	│	    │	         │
+	│	    │	         │
+	│	    │	         │		layout_centerInParent
+	│	    │	         │
+	│	    │	         │
+	──────┼────── 	 	layout_centerVertical
+	│	    │	         │
+	│	    │	         │
+	│	    │	         │
+	│	    │	         │
+	│	    │	         │
+	──────│──────		layout_alignParentBottom
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+			  above
+	alignLeft			alignRignt
+		─────────────		alignTop
+		│	    │	         │
+		│	    │	         │
+		│	    │	         │		
+		│	    │	         │
+		│	    │	         │
+	toLeftOf ───── 기준 ───── 	      alignBaseline	toRignthOf
+		│	    │	         │
+		│	    │	         │
+		│	    │	         │
+		│	    │	         │
+		│	    │	         │
+		─────────────		alignBottom
+
+			below
+
+
+
+  4) 테이블 레이아웃
+	뷰들을 표 형태로 배치할 때 사용
+	<TableRow> 태그로 시작하고 TableRow태그의 수가 행의수
+	TableRow 태그 안에 있는 View가 열의 수
+	android:layout_span 으로 열 병합
+	행 병합은 추가적인 레이아웃 사용
+
+
+  5) 그리드 레이아웃
+	테이블 레이아웃과 비슷하지만 좀 더 직관적
+	columnCount 열의 수를 표시		레이아웃에 지정
+	rowCount 행의 수를 표시			레이아웃에 지정
+	layout_column 열의 위치를 표시		뷰에 지정	0번부터 시작
+	layout_row 행의 위치를 표시		뷰에 지정	0번부터 시작
+	layout_columnSpan 열 병합		뷰에 지정
+	layout_rowSpan 행 병합			뷰에 지정
+
+	0행 0열	0행 1열	0행 2열 ~~~
+	1행 0열	1행 1열	1행 2열 ~~~
+	2행 0열	2행 1열	2행 2열 ~~~
+	3행 0열	3행 1열	3행 2열 ~~~
+	  ~
+	  ~
+	  ~
+
+  6) 프레임 레이아웃
+	단순한 레이아웃
+	레이아웃 안의 위젯을 왼쪽 상단부터 겹쳐서 출력
+
+
+
+2. 안드로이드 리소스
+	/res/values 
+		- colors.xml	색상 정의
+		- strings.xml	문자열 정의
+		- styles.xml	스타일 정의
+		- arrays.xml	배열 정의
+
+	/res/drawable 	png, jpg, gif 등 각종 이미지 파일, 도형을 정의한 XML 파일 
+	
+	/res/menu 	<menu> 루트 요소 밑에 <item>, <group> 등을 정의한 어떤 XML 파일도 가능 
+	
+	/res/layout 	화면 별로 레이아웃을 개별 XML로 정의
+	
+	/res/xml 	개발자 임의로 정의하는 모든 XML 파일 
+	
+	/res/raw	원본 파일, mp3, mp4, txt, exe 등
+	
+	
+	
+	
+3. 안드로이드 이벤트
+  1) 이벤트란?
+	일반적으로 클릭 또는 드래그 등과 같은 동작들을 발생했을 때 이벤트(Event)가 발생했다고 하며
+	해당 동작들을 어떻게 처리할지 결정하는 것을 이벤트 처리라고 한다. 
+	해당 이벤트는 이벤트 리스너(Event Listener) 객체를 생성하여 처리한다.
+
+  2) 리스너란?
+	리스너(Listener)의 의미가 "듣는 사람"인 것처럼  안드로이드에서도 비슷한 개념
+	어떤 이벤트의 발생 여부에 귀기울이는 객체를 뜻함
+	위젯에서 발생할 수 있는 클릭 이벤트는 부모 클래스인 View 클래스에 이미 정의
+	또한 이벤트를 위한 리스너도 Java 인터페이스의 형태로 정의(메소드 구현만 해서 사용하면 됨)
+
+
+
+  3) 안드로이드에서 이벤트 처리 방법
+	이벤트를 처리하기 위해 한가지 방법만 사용해야 하는 것은 아님
+
+	Java 코드에서 리스너를 생성하지 않고 처리하는 방법도 가능
+	리스너를 사용하지만 리스너 객체를 다루는 방식을 다르게도 가능
+	인터페이스로 만들어져 있는 리스너를 Activity에서 implements하여 이벤트를 처리도 가능
+	코드를 작성하는 개발자의 취향에 따라 결정되겠지만 상황에 따라 이벤트를 처리하는 방식을 달리 선택해야 하는 경우도 생기므로
+	각 이벤트 처리 방식의 구현 절차와 장단점이 존재
+
+
+    (1) 익명(Anonymous) 클래스를 생성하여 리스너로 사용
+	Button button1 = (Button) findViewById(R.id.button1) ;
+	button1.setOnClickListener(new Button.OnClickListener() {
+		@Override
+		public void onClick(View view) {
+		// TODO : click event
+		}
+	});
+
+	장점)
+	이벤트가 어디서 처리되는지 직관적으로 확인 가능 
+	코드 작성이 간결
+	가장 자주 사용되는 방법
+
+	단점)
+	위젯이 많아지면 코드가 길어진다.
+	관련 있는 위젯들이 서로 다른 위젯처럼 보인다.
+	익명 클래스 외부에 있는 변수를 사용하려면 변수를 선언할 때 반드시 final 키워드를 사용해야 한다.
+	아니면 변수 선언을 익명 클래스 내부에서 따로 해줘야 한다.
+
+
+      (2) 익명(Anonymous) 클래스를 미리 만들고 참조하여 리스너로 사용
+	익명 클래스 객체를 먼저 만들어 놓고 그 객체를 모든 위젯의 이벤트 리스너로 사용하는 것
+	익명 클래스 객체를 매번 생성하지 않아 첫번째 방법의 문제점들을 해결(수업 때 주로 사용한 방식)
+
+	View.OnClickListener listener = new View.OnClickListener() {
+	@Override
+		public void onClick(View v) {
+			switch(v.getId()) {
+			case R.id.btn:
+				Toast.makeText(getApplicationContext(), "버튼1 선택", Toast.LENGTH_LONG).show();
+				if(checkBox.isChecked()) {
+				text.setText("체크박스가 체크되어있습니다.");
+				} else {
+				text.setText("체크박스가 체크되어있지 않습니다.");
+				}
+				break;
+			}
+		}
+	};
+
+        Button btn1 = (Button)findViewById(R.id.btn);
+        btn1.setOnClickListener(listener);
+
+
+
+
+
+      (3) 이벤트 리스너 인터페이스를 implements하는 이벤트 리스너 클래스 생성하여 사용
+	직접 클래스를 만들기 때문에 좀 더 가독성을 높아진다.
+	가독성을 높이고 추후 또 다른 Button을 추가하여 사용할 가능성이 높은 경우 사용
+
+	class BtnOnClickListener implements Button.OnClickListener {
+		@Override
+		public void onClick(View view) {
+			TextView textView1 = (TextView) findViewById(R.id.textView1);
+			switch (view.getId()) {
+
+			}
+		}
+	}
+
+
+      (4) 액티비티에서 이벤트 리스너 implements해서 사용
+	이벤트 핸들러 함수에서 많은 수의 액티비티 멤버를 액세스해야 하는 경우.
+	액티비티 내부의 위젯들에 대한 클릭 이벤트를 한 곳에서 처리하고 싶은 경우.
+	익명클래스 또는 별도의 이벤트 리스너를 만들고 싶지 않은 경우.
+
+	public class MainActivity extends AppCompatActivity implements Button.OnClickListener {
+		@Override
+		public void onCreate(Bundle savedInstanceState) {
+		}
+
+		@Override
+		public void onClick(View view) {
+
+		}
+	}
+
+      (5) Layout 리소스 XML에서 Button의 onClick 속성 사용
+	별로 많이 사용하지 않는 방법, UI를 담당하는 사람과 처리 및 제어부를 담당하는 사람이 나눠져있기 때문에 각각의 역할을 나누기 위해서
+
+	<Button android:onClick="메소드명" />
+
+	public class MainActivity extends AppCompatActivity {
+    		public void onButtonClick(View view) {
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

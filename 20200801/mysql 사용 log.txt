@@ -1,0 +1,49 @@
+//////////////////////////////////////android studio 터미널
+
+c:
+
+cd C:\Users\Administrator\AppData\Local\Android\Sdk\platform-tools
+
+adb root
+adb devices
+adb shell
+
+
+sqlite3 testDB
+////////////////sql 접속
+>cd /data/data/com.chapter05.myapplication
+
+
+cd databases
+
+
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////
+create table user(
+id char(10),
+name char(10));
+
+insert into user value('test01', test01');
+insert into user value('test02', test02');
+
+
+select * from user;
+.mode column
+
+
+select * from user where id='test01';
+
+update user set id='test03' wherer id='test02';
+
+select * from user;
+delete from user where id='test03';

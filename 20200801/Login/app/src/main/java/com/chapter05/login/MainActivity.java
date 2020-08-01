@@ -1,4 +1,4 @@
-package com.chapter05.myapplication;
+package com.chapter05.login;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -27,29 +27,33 @@ import java.net.URL;
 import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
-    EditText edtId, edtPw;
-    Button sendBtn;
-    TextView result;
+    EditText edtEmail, edtName, edtPassword;
+    Button signupBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        edtId = (EditText) findViewById(R.id.edt1);
-        edtPw = (EditText) findViewById(R.id.edt2);
-        sendBtn = (Button) findViewById(R.id.sendBtn);
-        result = (TextView) findViewById(R.id.result);
+        edtEmail = (EditText) findViewById(R.id.edittext_email);
+        edtName = (EditText) findViewById(R.id.edittext_name);
+        edtPassword = (EditText) findViewById(R.id.edittext_password);
+        signupBtn = (Button) findViewById(R.id.button_signup);
 
-        sendBtn.setOnClickListener(new View.OnClickListener() {
+        signupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CustomTask task = new CustomTask();
                 try {
-                    result.setText(task.execute(
-                            edtId.getText().toString(),
-                            edtPw.getText().toString()
-                    ).get());
+                    String str = task.execute(
+                            edtEmail.getText().toString(),
+                            edtName.getText().toString(),
+                            edtPassword.getText().toString()
+                    ).get();
+
+                    Toast.makeText(getApplicationContext(),
+                            str,
+                            Toast.LENGTH_SHORT).show();
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {
@@ -61,13 +65,12 @@ public class MainActivity extends AppCompatActivity {
 
     class CustomTask extends AsyncTask<String, Void, String> {
         String sendMsg, receiveMsg;
-
         @Override
 
         protected String doInBackground(String... strings) {
             try {
 
-                URL url = new URL("http://192.168.0.13:8888/test/test.jsp");
+                URL url = new URL("http://192.168.0.21:8888/test/signup.jsp");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 conn.setRequestMethod("POST");
@@ -77,13 +80,14 @@ public class MainActivity extends AppCompatActivity {
 
                 OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
                 //sendMsg = "str1=test&str2=qwer";
-                sendMsg = "str1="+strings[0]+"&str2="+strings[1];
-
+                sendMsg = "email="+strings[0]
+                        +"&name="+strings[1]
+                        +"&password="+strings[2];
 
                 osw.write(sendMsg);
                 osw.flush();
 
-                if (conn.getResponseCode() == conn.HTTP_OK) {
+                if(conn.getResponseCode() == conn.HTTP_OK) {
                     InputStreamReader tmp = new InputStreamReader(conn.getInputStream(), "UTF-8");
                     BufferedReader reader = new BufferedReader(tmp);
                     StringBuffer buffer = new StringBuffer();
@@ -94,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                     receiveMsg = buffer.toString();
 
                 } else {
-                    Log.i("통신 결과", conn.getResponseCode() + "에러");
+                    Log.i("통신 결과", conn.getResponseCode()+"에러");
                 }
 
             } catch (MalformedURLException e) {
