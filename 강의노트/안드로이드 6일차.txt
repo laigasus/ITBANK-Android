@@ -1,0 +1,147 @@
+최종 채팅 어플리케이션 만들기 시작
+
+1. 프로젝트 생성 (프로젝트 이름:chat, 패키지 이름:com.sjb.chat)
+
+2. 시작 화면은 로그인 화면
+	AndroidManifest.xml 파일 수정
+		MainActivity 안의 intent-filter를 LoginActivity 안으로 이동
+
+
+	<activity android:name=".LoginActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".MainActivity">
+
+        </activity>
+
+3. 로그인 화면에서 회원가입 버튼 누르면 회원가입 화면이 실행
+	signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(
+                        new Intent(
+                                getApplicationContext(),
+                                SignupActivity.class)
+                );
+            }
+        });
+
+4. 회원가입 화면에서 회원가입 버튼 누르면 외부 DB에 회원 정보 저장 후 회원가입 화면 종료
+	8월 1일 수업 내용에서 회원가입 성공시 finish(); 코드 추가
+
+
+5. 로그인 화면에서 로그인 버튼 누르면 
+	로그인 성공시 토스트 메시지를 띄워주고 메인 화면이 실행
+	로그인 실패시 토스트 메시지를 띄워준다.
+
+
+
+
+
+-------------------------------------------------------------------------------------------
+
+10. 알림 기능 구현
+
+	매뉴얼 페이지 : https://firebase.google.com/docs/cloud-messaging/android/client?hl=ko
+
+
+1) firebase에 앱 등록
+
+2) 안드로이드 스튜디오 설정
+
+3) 인스턴스ID 확인
+btn_instance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseInstanceId.getInstance().getInstanceId()
+                        .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                                if (!task.isSuccessful()) {
+                                    Log.w("실패", "getInstanceId failed", task.getException());
+                                    return;
+                                }
+
+                                String token = task.getResult().getToken();
+				Log.i("토큰", token);
+                                Toast.makeText(MainActivity.this, token, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+        });
+
+4) 메시징서비스 클래스 생성
+
+package com.sjb.chat.firebase;
+
+import android.util.Log;
+import com.google.firebase.messaging.FirebaseMessagingService;
+import com.google.firebase.messaging.RemoteMessage;
+
+public class MyFirebaseMessagingService extends FirebaseMessagingService {
+    private static final String TAG = "메시지";
+
+    @Override
+    public void onMessageReceived(RemoteMessage remoteMessage) {
+        Log.d(TAG, "From: " + remoteMessage.getFrom());
+        if (remoteMessage.getNotification() != null) {
+            Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
+        }
+
+    }
+
+
+
+
+}
+5) 메니페스트에 메시징 서비스 등록
+	</activity>   // 이거 밑에 다음 코드 추가
+	<service
+            android:name=".firebase.MyFirebaseMessagingService"
+            android:exported="false"
+            tools:ignore="Instantiatable">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+6) build.gradle 버전 확인
+	implementation 'com.google.firebase:firebase-analytics:17.4.3'
+	implementation 'com.google.firebase:firebase-messaging:20.2.1'
+
+
+
+
+6) 특정 핸드폰에 메시지 보내기
+	이클립스에 send.jsp 추가
+	
+	이클립스에서 send.jsp에서 토큰 값이랑 서버 키값 설정한 후
+		토큰 값  : String json = 
+"{\"to\":\"  \",\"notification\":{\"title\":\""+fromemail+"\",\"body\":\""+message+"\"}}";
+
+		"{\"to\":\" 다음 \" 이전에 토큰 값 넣기
+		서버키 값conn.setRequestProperty("Authorization", "key=");
+							=다음에 키 값 넣기
+
+	이클립스에서 send.jsp 실행 후 
+		http://localhost:8888/test/send.jsp?fromemail=test&message=aaaaaaaaaa
+	로 요청
+	
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
