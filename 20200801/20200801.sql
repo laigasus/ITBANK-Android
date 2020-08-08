@@ -18,3 +18,6 @@ uemail varchar(10),
 uname varchar(10),
 upassword varchar(10)
 );
+
+select * from users;
+delete from users where uname="adsa";

@@ -1,0 +1,77 @@
+{
+  "project_info": {
+    "project_number": "934986923562",
+    "firebase_url": "https://sjb-chat.firebaseio.com",
+    "project_id": "sjb-chat",
+    "storage_bucket": "sjb-chat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:934986923562:android:e2e485d263590738ff4d53",
+        "android_client_info": {
+          "package_name": "com.sjb.chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "934986923562-hmujopv13r37pt02fgk9i7t225kpsmji.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAezPUL4nkWCOucI-IJsh_jFkCqxNXVLkY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "934986923562-hmujopv13r37pt02fgk9i7t225kpsmji.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:934986923562:android:321a02bcb8c3c979ff4d53",
+        "android_client_info": {
+          "package_name": "com.sjb.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "934986923562-30g6tlv7o0oet7la9v8vhtqsemdr6tqs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sjb.myapplication",
+            "certificate_hash": "e734a7228b8178d1fc103dbb4dfeea38bec14616"
+          }
+        },
+        {
+          "client_id": "934986923562-hmujopv13r37pt02fgk9i7t225kpsmji.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAezPUL4nkWCOucI-IJsh_jFkCqxNXVLkY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "934986923562-hmujopv13r37pt02fgk9i7t225kpsmji.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
